@@ -50,6 +50,7 @@ osThreadId defaultTaskHandle;
 osThreadId UartTask01Handle;
 osThreadId UartTask02Handle;
 osThreadId UartTask03Handle;
+osSemaphoreId BinSemHandle;
 /* USER CODE BEGIN PV */
 
 /* USER CODE END PV */
@@ -114,6 +115,11 @@ int main(void)
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
 
+  /* Create the semaphores(s) */
+  /* definition and creation of BinSem */
+  osSemaphoreDef(BinSem);
+  BinSemHandle = osSemaphoreCreate(osSemaphore(BinSem), 1);
+
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
@@ -136,12 +142,12 @@ int main(void)
   UartTask01Handle = osThreadCreate(osThread(UartTask01), NULL);
 
   /* definition and creation of UartTask02 */
-  osThreadDef(UartTask02, StartTask03, osPriorityNormal, 0, 128);
-  UartTask02Handle = osThreadCreate(osThread(UartTask02), NULL);
+  // osThreadDef(UartTask02, StartTask03, osPriorityNormal, 0, 128);
+  // UartTask02Handle = osThreadCreate(osThread(UartTask02), NULL);
 
-  /* definition and creation of UartTask03 */
-  osThreadDef(UartTask03, StartTask04, osPriorityAboveNormal, 0, 128);
-  UartTask03Handle = osThreadCreate(osThread(UartTask03), NULL);
+  // /* definition and creation of UartTask03 */
+  // osThreadDef(UartTask03, StartTask04, osPriorityAboveNormal, 0, 128);
+  // UartTask03Handle = osThreadCreate(osThread(UartTask03), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -360,7 +366,12 @@ void StartTask02(void const * argument)
   /* Infinite loop */
   for(;;)
   {
-    printf("Text from task 02\n");
+    printf("Enter task 02\n");
+
+    osSemaphoreWait(BinSemHandle, osWaitForever);
+
+    printf("Leaving task 02\n");
+    osSemaphoreRelease(BinSemHandle);
     osDelay(500);
   }
   /* USER CODE END StartTask02 */

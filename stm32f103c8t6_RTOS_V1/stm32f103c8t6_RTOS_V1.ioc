@@ -1,6 +1,7 @@
 #MicroXplorer Configuration settings - do not modify
+FREERTOS.BinarySemaphores01=BinSem,Dynamic,NULL
 FREERTOS.FootprintOK=true
-FREERTOS.IPParameters=Tasks01,FootprintOK
+FREERTOS.IPParameters=Tasks01,FootprintOK,BinarySemaphores01
 FREERTOS.Tasks01=defaultTask,0,128,StartDefaultTask,Default,NULL,Dynamic,NULL,NULL;UartTask01,-1,128,StartTask02,Default,NULL,Dynamic,NULL,NULL;UartTask02,0,128,StartTask03,Default,NULL,Dynamic,NULL,NULL;UartTask03,1,128,StartTask04,Default,NULL,Dynamic,NULL,NULL
 File.Version=6
 GPIO.groupedBy=
@@ -95,7 +96,7 @@ ProjectManager.StackSize=0x400
 ProjectManager.TargetToolchain=Makefile
 ProjectManager.ToolChainLocation=
 ProjectManager.UnderRoot=false
-ProjectManager.functionlistsort=1-MX_GPIO_Init-GPIO-false-HAL-true,2-SystemClock_Config-RCC-false-HAL-false,3-MX_USB_DEVICE_Init-USB_DEVICE-false-HAL-false,3-MX_USART1_UART_Init-USART1-false-HAL-true
+ProjectManager.functionlistsort=1-MX_GPIO_Init-GPIO-false-HAL-true,2-SystemClock_Config-RCC-false-HAL-false,3-MX_USART1_UART_Init-USART1-false-HAL-true,4-MX_USB_PCD_Init-USB-false-HAL-true
 RCC.ADCFreqValue=36000000
 RCC.AHBFreq_Value=72000000
 RCC.APB1CLKDivider=RCC_HCLK_DIV2
